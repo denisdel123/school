@@ -1,10 +1,18 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+from materialsApp.models import Course, Lesson
+
 NULLABLE = {
     'null': True,
     'blank': True
 }
+
+PAYMENT_METHOD = (
+    ('cash', 'Наличные'),
+    ('transfer', 'Перевод на счет'),
+
+)
 
 """Модель пользователя"""
 
@@ -19,3 +27,18 @@ class User(AbstractUser):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
+
+
+class Payments(models.Model):
+    user = models.ForeignKey(User, **NULLABLE, on_delete=models.CASCADE, related_name='Пользователь')
+    at_payment = models.DateTimeField(auto_now=True, verbose_name='Дата оплаты')
+    paid_course = models.ForeignKey(Course, **NULLABLE, on_delete=models.CASCADE, related_name='Оплаченный_курс')
+    paid_lesson = models.ForeignKey(Lesson, **NULLABLE, on_delete=models.CASCADE, related_name='Оплаченный_урок')
+    sum_paid = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Сумма оплаты')
+    method_paid = models.CharField(max_length=30, choices=PAYMENT_METHOD, verbose_name='Способ оплаты')
+
+    class Meta:
+        verbose_name = 'Платеж'
+        verbose_name_plural = 'Платежи'
+        ordering = ('at_payment',)
+
