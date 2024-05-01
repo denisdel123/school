@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+from app import settings
 from materialsApp.models import Course, Lesson
 
 NULLABLE = {
@@ -30,7 +31,7 @@ class User(AbstractUser):
 
 
 class Payments(models.Model):
-    user = models.ForeignKey(User, **NULLABLE, on_delete=models.CASCADE, related_name='Пользователь')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, **NULLABLE, on_delete=models.CASCADE, related_name='user_p')
     at_payment = models.DateTimeField(auto_now=True, verbose_name='Дата оплаты')
     paid_course = models.ForeignKey(Course, **NULLABLE, on_delete=models.CASCADE, related_name='Оплаченный_курс')
     paid_lesson = models.ForeignKey(Lesson, **NULLABLE, on_delete=models.CASCADE, related_name='Оплаченный_урок')
