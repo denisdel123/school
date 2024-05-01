@@ -34,7 +34,7 @@ class Command(BaseCommand):
 
         for person in user_add:
             users = User.objects.create(**person)
-            users.set_password('44444')
+            users.set_password('55555')
             users.save()
 
         add_course = [

@@ -12,8 +12,8 @@ class LessonSerializer(serializers.ModelSerializer):
 
 
 class CourseSerializer(serializers.ModelSerializer):
-    num_lesson = serializers.SerializerMethodField()
-    lesson = LessonSerializer(source='course', many=True)
+    num_lesson = serializers.SerializerMethodField(read_only=True)
+    lesson = LessonSerializer(source='course', many=True, read_only=True, )
 
     class Meta:
         model = Course
@@ -21,6 +21,3 @@ class CourseSerializer(serializers.ModelSerializer):
 
     def get_num_lesson(self, obj):
         return Lesson.objects.filter(course=obj).count()
-
-
-"""Сериализатор для generics контроллеров """

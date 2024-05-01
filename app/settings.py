@@ -9,8 +9,15 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
+import os
 from datetime import timedelta
 from pathlib import Path
+from dotenv import load_dotenv
+
+load_dotenv()
+SECRET_KEY_E = os.environ.get('SECRET_KEY')
+PASS_DB = os.environ.get("PASS_DB")
+USER_DB = os.environ.get('USER_DB')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -19,7 +26,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-57a&t#orre4@@s(8sjp&r=xm0f!aq0(#=w+7+1k*ypk^@rfqfa'
+
+SECRET_KEY = SECRET_KEY_E
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -80,8 +88,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'school',
-        'USER': 'postgres',
-        'PASSWORD': '55555',
+        'USER': USER_DB,
+        'PASSWORD': PASS_DB,
     }
 }
 

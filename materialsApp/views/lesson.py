@@ -31,6 +31,12 @@ class LessonListAPIView(generics.ListAPIView):
         self.permission_classes = [IsAuthenticated, IsModer | IsAdminUser | IsOwner]
         return super().get_permissions()
 
+    def get_queryset(self):
+        if self.request.user.groups.filter(name='modern').exists():
+            return Lesson.objects.all()
+        else:
+            return Lesson.objects.all().filter(owner=self.request.user)
+
 
 """Контроллер на основе genetic для получения одного объекта"""
 
