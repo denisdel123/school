@@ -1,11 +1,14 @@
 from rest_framework import serializers
 
 from materialsApp.models import Course, Lesson
+from materialsApp.validators import youtube_url_validator
 
 """Сериализатор для ViewSet контроллера """
 
 
 class LessonSerializer(serializers.ModelSerializer):
+    url_to_video = serializers.URLField(validators=[youtube_url_validator])
+
     class Meta:
         model = Lesson
         fields = "__all__"
