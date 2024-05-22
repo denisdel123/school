@@ -33,7 +33,7 @@ class Lesson(models.Model):
     description = models.TextField(**NULLABLE, verbose_name='Описание')
     image = models.ImageField(**NULLABLE, upload_to='lesson/', verbose_name='Картинка')
     url_to_video = models.URLField(**NULLABLE, verbose_name='Ссылка на видео')
-    course = models.ForeignKey(Course, **NULLABLE, on_delete=models.CASCADE, related_name='course')
+    course = models.ForeignKey(Course, **NULLABLE, on_delete=models.CASCADE, related_name='lesson_course')
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, **NULLABLE, on_delete=models.CASCADE, related_name='owner')
 
     def __str__(self):
@@ -42,3 +42,19 @@ class Lesson(models.Model):
     class Meta:
         verbose_name = 'Урок'
         verbose_name_plural = 'Уроки'
+
+
+class Subscription(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        verbose_name='Пользователь',
+        related_name='sub_user'
+    )
+
+    course = models.ForeignKey(
+        Course,
+        on_delete=models.CASCADE,
+        verbose_name='курс',
+        related_name='sub_course'
+    )

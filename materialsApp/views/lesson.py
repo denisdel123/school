@@ -44,8 +44,9 @@ class LessonCreateAPIView(generics.CreateAPIView):
 class LessonListAPIView(generics.ListAPIView):
     serializer_class = LessonSerializer
     pagination_class = CustomPagination
-    renderer_classes = [JSONRenderer]
-    template_name = 'materialsApp/lesson_list.html'
+
+    # renderer_classes = [JSONRenderer]
+    # template_name = 'materialsApp/lesson_list.html'
 
     def get_permissions(self):
         permissions = []
@@ -55,10 +56,10 @@ class LessonListAPIView(generics.ListAPIView):
             permissions = [AllowAny]
         return [permission() for permission in permissions]
 
-    def get(self, request, *args, **kwargs):
-        queryset = self.get_queryset()
-        serializer = self.serializer_class(queryset, many=True)
-        return Response(serializer.data)
+    # def get(self, request, *args, **kwargs):
+    #    queryset = self.get_queryset()
+    #    serializer = self.serializer_class(queryset, many=True)
+    #    return Response(serializer.data)
 
     def get_queryset(self):
         if self.request.user.groups.filter(name='modern').exists():
@@ -71,12 +72,16 @@ class LessonListAPIView(generics.ListAPIView):
 
 
 class LessonRetrieveAPIView(generics.RetrieveAPIView):
-    serializer_class = LessonSerializer
-    queryset = Lesson.objects.all()
+
+    def get_serializer_class(self):
+        return LessonSerializer
 
     def get_permissions(self):
         self.permission_classes = [IsAuthenticated, IsModer | IsAdminUser | IsOwner]
         return super().get_permissions()
+
+    def get_queryset(self):
+        return Lesson.objects.all().order_by('name')
 
 
 """Контроллер на основе genetic для редактирования"""

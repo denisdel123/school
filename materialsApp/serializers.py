@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from materialsApp.models import Course, Lesson
+from materialsApp.models import Course, Lesson, Subscription
 from materialsApp.validators import youtube_url_validator
 
 """Сериализатор для ViewSet контроллера """
@@ -24,3 +24,10 @@ class CourseSerializer(serializers.ModelSerializer):
 
     def get_num_lesson(self, obj):
         return Lesson.objects.filter(course=obj).count()
+
+
+class SubscriptionSerializer(serializers.ModelSerializer):
+    class Meta:
+
+        model = Subscription
+        fields = ['id', 'user', 'course']

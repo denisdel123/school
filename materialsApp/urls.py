@@ -5,6 +5,7 @@ from materialsApp.apps import MaterialsappConfig
 from materialsApp.views.course import CourseViewSet
 from materialsApp.views.lesson import LessonCreateAPIView, LessonListAPIView, LessonRetrieveAPIView, \
     LessonUpdateAPIView, LessonDestroyAPIView
+from materialsApp.views.subscription import SubscriptionCreate
 
 app_name = MaterialsappConfig.name
 router = DefaultRouter()
@@ -19,6 +20,11 @@ urlpatterns = [
     path('lesson/update/<int:pk>/', LessonUpdateAPIView.as_view(), name='lesson_update'),
     path('lesson/destroy/<int:pk>/', LessonDestroyAPIView.as_view(), name='lesson_destroy'),
 
+
+    # model Subscription
+    path('subscribe/', SubscriptionCreate.as_view(), name='subscribe')
+
 ]
 # добавление router.urls к ссылкам
 urlpatterns += router.urls
+
