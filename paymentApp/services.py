@@ -1,17 +1,25 @@
+import requests
 import stripe
 from forex_python.converter import CurrencyRates
+from rest_framework import status
 
 from app import settings
 
 stripe.api_key = settings.STRIPE_API_KEY
+CURRENCY_API_KEY = settings.CURRENCY_API_KEY
 
 
 def convert_rub_to_usd(amount):
     """Конвертирует рубль в доллар."""
-    # currency = CurrencyRates()
-    # rate = currency.get_rate('RUB', 'USD')
+    usd = 0
+    link = f'https://api.currencyapi.com/v3/latest?apikey={CURRENCY_API_KEY}&currencies=RUB'
 
-    return int(amount / 91)
+    response = requests.get(link)
+    if response.status_code == status.HTTP_200_OK:
+        currency = response.json()['data']['RUB']['value']
+        usd = int(amount / currency)
+
+    return usd
 
 
 def create_stripe_product(name):

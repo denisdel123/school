@@ -19,6 +19,7 @@ SECRET_KEY_E = os.environ.get('SECRET_KEY')
 PASS_DB = os.environ.get("PASS_DB")
 USER_DB = os.environ.get('USER_DB')
 STRIPE_API_KEY = os.environ.get('STRIPE_API_KEY')
+CURRENCY_API_KEY = os.environ.get('CURRENCY_API_KEY')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -149,11 +150,12 @@ REST_FRAMEWORK = {
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
-        'rest_framework.permissions.IsAuthenticated'
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
+    ),
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.openapi.AutoSchema',
+
 }
 
 # Настройки срока действия токенов
