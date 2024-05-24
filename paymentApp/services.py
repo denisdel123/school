@@ -1,6 +1,5 @@
 import requests
 import stripe
-from forex_python.converter import CurrencyRates
 from rest_framework import status
 
 from app import settings
