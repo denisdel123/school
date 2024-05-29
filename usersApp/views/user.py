@@ -1,3 +1,6 @@
+from django.contrib.auth import user_logged_in
+from django.dispatch import receiver
+from django.utils import timezone
 from rest_framework import viewsets
 from rest_framework.permissions import AllowAny, IsAuthenticated
 
@@ -6,6 +9,14 @@ from usersApp.permissions import IsOwner
 from usersApp.serializers import UserOwnerSerializers, UserSerializers, UserListSerializers
 
 """Контроллер ViewSet для модели User"""
+
+
+@receiver(user_logged_in)
+def handle_user_login(sender, user, request, **kwargs):
+    # Выполнить действия после успешной авторизации пользователя
+    # Например, установить дату последней авторизации
+    user.last_login = timezone.now()
+    user.save()
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -35,4 +46,3 @@ class UserViewSet(viewsets.ModelViewSet):
             return UserOwnerSerializers
         else:
             return UserSerializers
-

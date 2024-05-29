@@ -285,14 +285,6 @@ class SubscriptionTestCase(APITestCase):
         }
         response = self.client.post(self.url, data)
 
-        result = [
-            {
-                'id': self.subscription.pk,
-                'user': self.subscription.user,
-                'course': self.subscription.course
-            }
-        ]
-
         self.assertEquals(
             response.status_code, status.HTTP_200_OK
         )

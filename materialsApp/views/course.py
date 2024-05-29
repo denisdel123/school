@@ -1,10 +1,11 @@
 from rest_framework import viewsets
-from rest_framework.filters import SearchFilter, OrderingFilter
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.decorators import action
+from rest_framework.permissions import IsAuthenticated
 
 from materialsApp.models import Course
 from materialsApp.paginations import CustomPagination
 from materialsApp.serializers import CourseSerializer
+from materialsApp.tasks import send_update
 from usersApp.permissions import IsModer, IsOwner
 
 """Контроллер на основе ViewSet"""
@@ -34,3 +35,12 @@ class CourseViewSet(viewsets.ModelViewSet):
             return Course.objects.all().order_by("name")
         else:
             return Course.objects.all().filter(owner=self.request.user).order_by("name")
+
+    def perform_update(self, serializer):
+        instance = serializer.save()
+        update_fields = {field: serializer.validated_data[field] for field in serializer.validated_data}
+        send_update.delay(instance.id, update_fields)
+        # print(instance.id)
+        # print(update_fields)
+        super().perform_update(serializer)
+

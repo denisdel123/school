@@ -27,4 +27,3 @@ urlpatterns = [
 ]
 # добавление router.urls к ссылкам
 urlpatterns += router.urls
-

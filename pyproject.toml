@@ -22,6 +22,8 @@ drf-yasg = "^1.21.7"
 coreapi = "^2.3.3"
 celery = "^5.4.0"
 redis = "^5.0.4"
+django-celery-beat = "^2.6.0"
+flake8 = "^7.0.0"
 
 
 [tool.poetry.group.dev.dependencies]

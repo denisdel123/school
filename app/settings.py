@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'django_filters',
     'rest_framework_simplejwt',
     'rest_framework',
+    'django_celery_beat',
 ]
 
 MIDDLEWARE = [
@@ -172,6 +173,18 @@ CSRF_TRUSTED_ORIGINS = [
     "https://read-and-write.example.com",
 ]
 
+
+PASSWORD_MAIL_RU = os.getenv('PASSWORD_MAIL_RU')
+ADDRESS_MAIL_RU = os.environ.get("ADDRESS_MAIL_RU")
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.mail.ru'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = ADDRESS_MAIL_RU
+EMAIL_HOST_PASSWORD = PASSWORD_MAIL_RU
+DEFAULT_FROM_EMAIL = ADDRESS_MAIL_RU
+
 # URL-адрес брокера сообщений
 CELERY_BROKER_URL = 'redis://localhost:6379/0'
 
@@ -186,3 +199,10 @@ CELERY_TASK_TRACK_STARTED = True
 
 # Максимальное время на выполнение задачи
 CELERY_TASK_TIME_LIMIT = 30 * 60
+
+CELERY_BEAT_SCHEDULE = {
+    "my-5-min-task": {
+        "task": "materialsApp.tasks.check_user",
+        "schedule": timedelta(seconds=10),
+    },
+}

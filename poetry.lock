@@ -340,6 +340,20 @@ files = [
 jinja2 = "*"
 
 [[package]]
+name = "cron-descriptor"
+version = "1.4.3"
+description = "A Python library that converts cron expressions into human readable strings."
+optional = false
+python-versions = "*"
+files = [
+    {file = "cron_descriptor-1.4.3-py3-none-any.whl", hash = "sha256:a67ba21804983b1427ed7f3e1ec27ee77bf24c652b0430239c268c5ddfbf9dc0"},
+    {file = "cron_descriptor-1.4.3.tar.gz", hash = "sha256:7b1a00d7d25d6ae6896c0da4457e790b98cba778398a3d48e341e5e0d33f0488"},
+]
+
+[package.extras]
+dev = ["polib"]
+
+[[package]]
 name = "decorator"
 version = "5.1.1"
 description = "Decorators for Humans"
@@ -371,6 +385,24 @@ argon2 = ["argon2-cffi (>=19.1.0)"]
 bcrypt = ["bcrypt"]
 
 [[package]]
+name = "django-celery-beat"
+version = "2.6.0"
+description = "Database-backed Periodic Tasks."
+optional = false
+python-versions = "*"
+files = [
+    {file = "django-celery-beat-2.6.0.tar.gz", hash = "sha256:f75b2d129731f1214be8383e18fae6bfeacdb55dffb2116ce849222c0106f9ad"},
+]
+
+[package.dependencies]
+celery = ">=5.2.3,<6.0"
+cron-descriptor = ">=1.2.32"
+Django = ">=2.2,<5.1"
+django-timezone-field = ">=5.0"
+python-crontab = ">=2.3.4"
+tzdata = "*"
+
+[[package]]
 name = "django-cors-headers"
 version = "4.3.1"
 description = "django-cors-headers is a Django application for handling the server headers required for Cross-Origin Resource Sharing (CORS)."
@@ -398,6 +430,20 @@ files = [
 
 [package.dependencies]
 Django = ">=4.2"
+
+[[package]]
+name = "django-timezone-field"
+version = "6.1.0"
+description = "A Django app providing DB, form, and REST framework fields for zoneinfo and pytz timezone objects."
+optional = false
+python-versions = ">=3.8,<4.0"
+files = [
+    {file = "django_timezone_field-6.1.0-py3-none-any.whl", hash = "sha256:0095f43da716552fcc606783cfb42cb025892514f1ec660ebfa96186eb83b74c"},
+    {file = "django_timezone_field-6.1.0.tar.gz", hash = "sha256:d40f7059d7bae4075725d04a9dae601af9fe3c7f0119a69b0e2c6194a782f797"},
+]
+
+[package.dependencies]
+Django = ">=3.2,<6.0"
 
 [[package]]
 name = "djangorestframework"
@@ -474,6 +520,22 @@ files = [
 
 [package.extras]
 tests = ["asttokens (>=2.1.0)", "coverage", "coverage-enable-subprocess", "ipython", "littleutils", "pytest", "rich"]
+
+[[package]]
+name = "flake8"
+version = "7.0.0"
+description = "the modular source code checker: pep8 pyflakes and co"
+optional = false
+python-versions = ">=3.8.1"
+files = [
+    {file = "flake8-7.0.0-py2.py3-none-any.whl", hash = "sha256:a6dfbb75e03252917f2473ea9653f7cd799c3064e54d4c8140044c5c065f53c3"},
+    {file = "flake8-7.0.0.tar.gz", hash = "sha256:33f96621059e65eec474169085dc92bf26e7b2d47366b70be2f67ab80dc25132"},
+]
+
+[package.dependencies]
+mccabe = ">=0.7.0,<0.8.0"
+pycodestyle = ">=2.11.0,<2.12.0"
+pyflakes = ">=3.2.0,<3.3.0"
 
 [[package]]
 name = "forex-python"
@@ -712,6 +774,17 @@ files = [
 traitlets = "*"
 
 [[package]]
+name = "mccabe"
+version = "0.7.0"
+description = "McCabe checker, plugin for flake8"
+optional = false
+python-versions = ">=3.6"
+files = [
+    {file = "mccabe-0.7.0-py2.py3-none-any.whl", hash = "sha256:6c2d30ab6be0e4a46919781807b4f0d834ebdd6c6e3dca0bda5a15f863427b6e"},
+    {file = "mccabe-0.7.0.tar.gz", hash = "sha256:348e0240c33b60bbdf4e523192ef919f28cb2c3d7d5c7794f74009290f236325"},
+]
+
+[[package]]
 name = "packaging"
 version = "24.0"
 description = "Core utilities for Python packages"
@@ -899,6 +972,28 @@ files = [
 tests = ["pytest"]
 
 [[package]]
+name = "pycodestyle"
+version = "2.11.1"
+description = "Python style guide checker"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "pycodestyle-2.11.1-py2.py3-none-any.whl", hash = "sha256:44fe31000b2d866f2e41841b18528a505fbd7fef9017b04eff4e2648a0fadc67"},
+    {file = "pycodestyle-2.11.1.tar.gz", hash = "sha256:41ba0e7afc9752dfb53ced5489e89f8186be00e599e712660695b7a75ff2663f"},
+]
+
+[[package]]
+name = "pyflakes"
+version = "3.2.0"
+description = "passive checker of Python programs"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "pyflakes-3.2.0-py2.py3-none-any.whl", hash = "sha256:84b5be138a2dfbb40689ca07e2152deb896a65c3a3e24c251c5c62489568074a"},
+    {file = "pyflakes-3.2.0.tar.gz", hash = "sha256:1c61603ff154621fb2a9172037d84dca3500def8c8b630657d1701f026f8af3f"},
+]
+
+[[package]]
 name = "pygments"
 version = "2.18.0"
 description = "Pygments is a syntax highlighting package written in Python."
@@ -928,6 +1023,23 @@ crypto = ["cryptography (>=3.4.0)"]
 dev = ["coverage[toml] (==5.0.4)", "cryptography (>=3.4.0)", "pre-commit", "pytest (>=6.0.0,<7.0.0)", "sphinx (>=4.5.0,<5.0.0)", "sphinx-rtd-theme", "zope.interface"]
 docs = ["sphinx (>=4.5.0,<5.0.0)", "sphinx-rtd-theme", "zope.interface"]
 tests = ["coverage[toml] (==5.0.4)", "pytest (>=6.0.0,<7.0.0)"]
+
+[[package]]
+name = "python-crontab"
+version = "3.1.0"
+description = "Python Crontab API"
+optional = false
+python-versions = "*"
+files = [
+    {file = "python-crontab-3.1.0.tar.gz", hash = "sha256:f4ea1605d24533b67fa7a634ef26cb59a5f2e7954f6e677d2d7a2229959a2fc8"},
+]
+
+[package.dependencies]
+python-dateutil = "*"
+
+[package.extras]
+cron-description = ["cron-descriptor"]
+cron-schedule = ["croniter"]
 
 [[package]]
 name = "python-dateutil"
@@ -1324,4 +1436,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "d80e0b5a5224a45aad296746169a17063664071f47228b9b629053210459a3ad"
+content-hash = "0c4254c1731de7f41ec0573e313aba401d19ef0293b21309464d1b4423562624"

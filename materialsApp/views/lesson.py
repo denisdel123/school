@@ -1,6 +1,6 @@
 from django.shortcuts import redirect
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
-from rest_framework.renderers import TemplateHTMLRenderer, JSONRenderer
+from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.response import Response
 from rest_framework.viewsets import generics
 
@@ -14,28 +14,25 @@ from usersApp.permissions import IsModer, IsOwner
 
 class LessonCreateAPIView(generics.CreateAPIView):
     serializer_class = LessonSerializer
-    renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'materialsApp/lesson_create.html'
 
     def get_permissions(self):
-        # self.permission_classes = [~IsModer | IsAdminUser | IsOwner]
-        self.permission_classes = [AllowAny]
+        self.permission_classes = [~IsModer | IsAdminUser | IsOwner]
         return super().get_permissions()
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
         return super().perform_create(serializer)
 
-    def get(self, request, *args, **kwargs):
-        serializer = LessonSerializer()
-        return Response({"serializer": serializer})
+    # def get(self, request, *args, **kwargs):
+    #    serializer = LessonSerializer()
+    #    return Response({"serializer": serializer})
 
-    def post(self, request, *args, **kwargs):
-        serializer = LessonSerializer(data=request.data)
-        if not serializer.is_valid():
-            return Response({'serializer': serializer})
-        serializer.save()
-        return redirect('materialsApp:lesson_list')
+    # def post(self, request, *args, **kwargs):
+    #    serializer = LessonSerializer(data=request.data)
+    #    if not serializer.is_valid():
+    #        return Response({'serializer': serializer})
+    #    serializer.save()
+    #    return redirect('materialsApp:lesson_list')
 
 
 """Контроллер на основе genetic для получения всех объектов"""

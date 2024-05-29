@@ -42,4 +42,3 @@ class Payments(models.Model):
         verbose_name = 'Платеж'
         verbose_name_plural = 'Платежи'
         ordering = ('at_payment',)
-

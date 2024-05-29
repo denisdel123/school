@@ -14,9 +14,16 @@ class LessonSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class SubscriptionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Subscription
+        fields = ['id', 'user', 'course']
+
+
 class CourseSerializer(serializers.ModelSerializer):
     num_lesson = serializers.SerializerMethodField(read_only=True)
-    lesson = LessonSerializer(source='course', many=True, read_only=True, )
+    lesson = LessonSerializer(source='lesson_course', many=True, read_only=True, )
+    sub = SubscriptionSerializer(source='sub_course', many=True, read_only=True, )
 
     class Meta:
         model = Course
@@ -24,10 +31,3 @@ class CourseSerializer(serializers.ModelSerializer):
 
     def get_num_lesson(self, obj):
         return Lesson.objects.filter(course=obj).count()
-
-
-class SubscriptionSerializer(serializers.ModelSerializer):
-    class Meta:
-
-        model = Subscription
-        fields = ['id', 'user', 'course']
