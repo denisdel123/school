@@ -2,6 +2,7 @@ from celery import shared_task
 from dateutil.relativedelta import relativedelta
 from django.utils import timezone
 
+from app import settings
 from materialsApp.models import Course
 from materialsApp.services import all_send_mail
 from usersApp.models import User
@@ -11,12 +12,11 @@ from usersApp.models import User
 def send_update(course_id, update_files):
     email_list = []
     course = Course.objects.get(id=course_id)
-    print(course.sub_course.all())
     for sub in course.sub_course.all():
         email_list.append(sub.user.email)
     subject = 'Онлайн школа'
     massage = f'Обновленно: {update_files}, {email_list}'
-    email = ['denis_belenko@mail.ru']
+    email = [settings.ADDRESS_MAIL_RU]
     all_send_mail(subject, massage, email,)
 
 
