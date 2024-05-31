@@ -13,10 +13,8 @@ from usersApp.serializers import UserOwnerSerializers, UserSerializers, UserList
 
 @receiver(user_logged_in)
 def handle_user_login(sender, user, request, **kwargs):
-    # Выполнить действия после успешной авторизации пользователя
-    # Например, установить дату последней авторизации
-    user.last_login = timezone.now()
-    user.save()
+    user.profile.last_login = timezone.now()
+    user.profile.save()
 
 
 class UserViewSet(viewsets.ModelViewSet):
