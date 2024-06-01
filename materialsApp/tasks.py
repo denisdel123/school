@@ -27,10 +27,7 @@ def check_user():
     max_last_date = date_today - days
     users = User.objects.all()
     for user in users:
-        print(user.email)
-        print(user.last_login)
-        print(max_last_date)
-        if user.is_active is True and user.last_login < max_last_date:
+        if user.is_active and user.last_login and user.last_login.date() < max_last_date:
             user.is_active = False
             user.save()
     print("Проверка завершена!")

@@ -1,6 +1,7 @@
 from django.contrib.auth import user_logged_in
 from django.dispatch import receiver
 from django.utils import timezone
+from django.views.generic import DetailView
 from rest_framework import viewsets
 from rest_framework.permissions import AllowAny, IsAuthenticated
 
